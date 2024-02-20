@@ -21,10 +21,12 @@ export function App() {
    * This function will show a notification if the permission is granted
    * and the browser supports notifications
    */
-  async function sendNotification() {
-    if ("Notification" in window && permission === "granted") {
-      new Notification("Hello World!");
-      console.log("Notification sent");
+  async function activatePushNotifications() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.controller.postMessage({
+        command: "ACTIVATE_OFFLINE_NOTIFICATIONS",
+        data: false,
+      });
     }
   }
 
@@ -44,9 +46,9 @@ export function App() {
 
         <button
           className="bg-blue-400 px-6 py-3 rounded-lg font-medium font-mono"
-          onClick={sendNotification}
+          onClick={activatePushNotifications}
         >
-          Notify me
+          Activate Push Notifications
         </button>
       </div>
     </main>
