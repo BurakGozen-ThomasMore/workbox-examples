@@ -1,54 +1,14 @@
-import { useState } from "react";
-
 export function App() {
-  const [permission, setPermission] = useState(
-    "Notification" in window ? Notification.permission : "default"
-  );
-
-  /**
-   * This function will request permission to show notifications
-   * and put the permission in state
-   */
-  async function requestPermission() {
-    if ("Notification" in window) {
-      const permission = await Notification.requestPermission();
-      console.log(permission);
-      setPermission(permission);
-    }
-  }
-
-  /**
-   * This function will show a notification if the permission is granted
-   * and the browser supports notifications
-   */
-  async function sendNotification() {
-    if ("Notification" in window && permission === "granted") {
-      new Notification("Hello World!");
-      console.log("Notification sent");
-    }
-
-    const sw = await navigator.serviceWorker.ready;
-    sw.showNotification("Hello from SW!");
-  }
-
   return (
     <main className="bg-zinc-900 max-h-dvh h-dvh overflow-hidden w-screen flex flex-col justify-center items-center gap-12">
       <h1 className="text-5xl font-bold text-zinc-300 font-mono">Demo App</h1>
 
       <div className="flex flex-col gap-4">
-        {permission !== "granted" && (
-          <button
-            className="bg-orange-400 px-6 py-3 rounded-lg font-medium font-mono"
-            onClick={requestPermission}
-          >
-            Ask for permission
-          </button>
-        )}
+        <button className="bg-orange-400 px-6 py-3 rounded-lg font-medium font-mono">
+          Ask for permission
+        </button>
 
-        <button
-          className="bg-blue-400 px-6 py-3 rounded-lg font-medium font-mono"
-          onClick={sendNotification}
-        >
+        <button className="bg-blue-400 px-6 py-3 rounded-lg font-medium font-mono">
           Notify me
         </button>
       </div>
