@@ -1,14 +1,8 @@
 /* eslint-disable no-undef */
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js");
 
-workbox.routing.registerRoute(
-  ({ request }) => request.destination === "image",
-  new workbox.strategies.CacheFirst({
-    cacheName: "image-cache",
-    plugins: [
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 20,
-      }),
-    ],
-  })
-);
+/**
+ * Probeer te achterhalen hoe we:
+ * - alle afbeeldingen kunnen cachen met de cache first strategie
+ * - en dat deze vervalt na 3 dagen
+ */
